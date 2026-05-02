@@ -20,14 +20,16 @@ export default function HeroSection({
   badge,
 }: HeroSectionProps) {
   return (
-    <section className="hero-gradient text-white py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-10 left-10 text-9xl">🚂</div>
-        <div className="absolute bottom-10 right-10 text-9xl">🚃</div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[200px]">
-          🎫
-        </div>
+    <section className="hero-gradient text-white py-20 lg:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Diagonal stripe texture */}
+      <div className="absolute inset-0 hero-diag pointer-events-none" aria-hidden="true" />
+
+      {/* Scrolling train-track rail at the bottom of the hero */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-8 sm:h-10 overflow-hidden pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="hero-track w-full h-full" />
       </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -37,7 +39,7 @@ export default function HeroSection({
           </div>
         )}
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6 drop-shadow-lg">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg">
           {title}
         </h1>
 
