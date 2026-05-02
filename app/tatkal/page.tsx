@@ -208,7 +208,7 @@ const tweetData = [
   {
     handle: "infra_nerd_ravi",
     username: "Ravi Shankar",
-    avatar: "V",
+    avatar: "R",
     text: "Hot take: IRCTC's tatkal system is actually working exactly as designed.\n\nDesigned by whom? That's the investigation nobody wants to fund.\n\n#IRCTC #Tatkal #IndianRailways",
     time: "2d",
     likes: "67.4K",
