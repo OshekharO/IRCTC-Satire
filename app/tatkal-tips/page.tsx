@@ -56,7 +56,7 @@ const howToJsonLd = {
   image: `${BASE_URL}/og-image.png`,
   author: { "@type": "Person", name: "A Frustrated Train Passenger" },
   publisher: { "@type": "Organization", name: "IRCTC Satire", url: BASE_URL },
-  datePublished: "2024-12-01",
+  datePublished: "2026-05-01",
   inLanguage: "en-IN",
   step: [
     {
@@ -194,7 +194,7 @@ const tips = [
     content:
       "If multiple people are travelling, assign booking roles: Person A enters passenger details, Person B is on payment standby with card in hand, Person C handles OTP. This shaves critical seconds during each phase. It also requires convincing your family to wake up before 10 AM, which may be harder than getting the ticket.",
     satireBite:
-      "Your family's group booking WhatsApp thread will still be active 6 years later, titled 'Delhi Trip Planning 2024 🚂' with 847 messages and zero confirmed tickets.",
+      "Your family's group booking WhatsApp thread will still be active 6 years later, titled 'Delhi Trip Planning 2026 🚂' with 847 messages and zero confirmed tickets.",
   },
   {
     num: "10",

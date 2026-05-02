@@ -170,7 +170,7 @@ export default function TatkalPage() {
               <div className="bg-warning/10 border border-warning/30 rounded-xl p-4">
                 <p className="text-warning font-semibold text-sm">
                   ⚡ Fun Fact: The record for fastest Tatkal sellout is 0.18
-                  seconds, set on Diwali 2023. Zero humans were involved.
+                  seconds, set on Diwali 2025. Zero humans were involved.
                 </p>
               </div>
             </div>

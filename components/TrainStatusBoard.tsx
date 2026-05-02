@@ -115,7 +115,7 @@ export default function TrainStatusBoard({ trains = defaultTrains }: TrainStatus
               <td className="px-4 py-3 whitespace-nowrap">
                 <span className="delay-badge">{train.delay}</span>
               </td>
-              <td className="px-4 py-3 text-gray-500 italic text-xs">
+              <td className="px-4 py-3 text-gray-500 italic text-xs break-words min-w-[80px]">
                 &ldquo;{train.reason}&rdquo;
               </td>
             </tr>
