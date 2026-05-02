@@ -37,6 +37,7 @@ export default function Footer() {
                 { label: "Train Status (It's Late)", href: "/train-status" },
                 { label: "Hall of Shame", href: "/hall-of-shame" },
                 { label: "Agent Network", href: "/agent-network" },
+                { label: "Disappointment Calculator", href: "/disappointment-calculator" },
               ].map((link) => (
                 <li key={link.href + link.label}>
                   <Link

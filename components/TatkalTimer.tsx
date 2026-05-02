@@ -90,7 +90,7 @@ export default function TatkalTimer() {
               onClick={handleReset}
               className="text-xs text-primary underline hover:text-blue-800 transition-colors"
             >
-              Try again (you won't get it)
+              Try again (you won&apos;t get it)
             </button>
           </>
         )}
