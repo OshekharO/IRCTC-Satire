@@ -113,7 +113,7 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap gap-2">
             <a
-              href="https://wa.me/?text=Bhai%20ye%20dekh%20-%20IRCTC%20ka%20saccha%20haal%20😂%20https%3A%2F%2Firctc-satire.vercel.app"
+              href="https://wa.me/?text=Bhai%20ye%20dekh%20-%20IRCTC%20ka%20saccha%20haal%20😂%20https%3A%2F%2Fwww.irctc.eu.org"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors"
@@ -124,7 +124,7 @@ export default function Footer() {
               WhatsApp karo
             </a>
             <a
-              href="https://twitter.com/intent/tweet?text=IRCTC%20%E2%80%94%20India%27s%20most%20reliable%20ticket%20frustration%20system%20%F0%9F%9A%82&url=https%3A%2F%2Firctc-satire.vercel.app"
+              href="https://x.com/intent/tweet?text=IRCTC%20%E2%80%94%20India%27s%20most%20reliable%20ticket%20frustration%20system%20%F0%9F%9A%82&url=https%3A%2F%2Fwww.irctc.eu.org"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 bg-black hover:bg-gray-800 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors"

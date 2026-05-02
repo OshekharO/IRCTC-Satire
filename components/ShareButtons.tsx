@@ -54,7 +54,7 @@ export default function ShareButtons({ url, title, message, className = "" }: Sh
 
       {/* Twitter / X */}
       <a
-        href={`https://twitter.com/intent/tweet?text=${encodedMsg}&url=${encodedUrl}`}
+        href={`https://x.com/intent/tweet?text=${encodedMsg}&url=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Share on Twitter"
