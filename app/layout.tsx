@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.irctc.eu.org"),
+  metadataBase: new URL("https://irctc.eu.org"),
   title: {
     default: "IRCTC Satire | India's Most Reliable Ticket Frustration System",
     template: "%s | IRCTC Satire",
