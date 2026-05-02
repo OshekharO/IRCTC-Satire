@@ -5,7 +5,7 @@ import ShareButtons from "@/components/ShareButtons";
 import MemeCard from "@/components/MemeCard";
 import RelatedArticles from "@/components/RelatedArticles";
 
-const BASE_URL = "https://www.irctc.eu.org";
+const BASE_URL = "https://irctc.eu.org";
 const PAGE_URL = `${BASE_URL}/why-tatkal-fails`;
 
 export const metadata: Metadata = {
