@@ -107,6 +107,7 @@ export default function TrainStatusPage() {
   const [generatedReason, setGeneratedReason] = useState("");
   const [liveUpdates, setLiveUpdates] = useState<Array<{ time: string; message: string }>>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Stable random values — recomputed only when searchKey changes, not on every render
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,19 +118,23 @@ export default function TrainStatusPage() {
   const severityLevel = useMemo(() => getDelaySeverityLevel(delayAmount), [delayAmount]);
 
   useEffect(() => {
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    };
   }, []);
 
   const handleSearch = () => {
     if (!trainNumber.trim()) return;
     if (intervalRef.current) clearInterval(intervalRef.current);
+    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
 
     setSearched(false);
     setLoading(true);
     setLiveUpdates([]);
 
     // Fake ~1.5 s network call for realism
-    setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       setSearchKey((k) => k + 1);
       setSearched(true);
       setLoading(false);
