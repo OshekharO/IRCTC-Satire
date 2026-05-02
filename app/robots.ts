@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.irctc.eu.org/sitemap.xml",
+    sitemap: "https://irctc.eu.org/sitemap.xml",
   };
 }
