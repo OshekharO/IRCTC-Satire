@@ -4,7 +4,7 @@
 
 A satirical / parody web app that lovingly roasts India's beloved IRCTC booking experience — Tatkal disasters, legendary server crashes, impossible captchas, mystery delays, and the all-powerful agent network.
 
-**Live:** [www.irctc.eu.org](https://www.irctc.eu.org)
+**Live:** [www.irctc.eu.org](https://irctc.eu.org)
 
 ---
 
