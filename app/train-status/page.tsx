@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import TrainStatusBoard from "@/components/TrainStatusBoard";
 
@@ -19,6 +19,29 @@ const delayReasons = [
   "GPS said 'turn left'. Train cannot turn left.",
 ];
 
+const delayAmounts = [
+  "47m", "1h 05m", "1h 30m", "2h 10m", "3h 47m",
+  "4h 23m", "5h 10m", "6h 42m", "7h 00m", "11h 30m",
+];
+
+const liveUpdateMessages = [
+  "Driver spotted at tea stall near Platform 3",
+  "Train still emotionally unavailable",
+  "Signal refused to turn green (personal reasons)",
+  "Guard blowing whistle; nobody listening",
+  "Engine consulting astrologer about departure time",
+  "Passengers have accepted fate and started a kitty party",
+  "ATC: 'Where is train?' | Control: 'Yes'",
+  "Train approaching station. Station also approaching. Standoff.",
+  "Delay updated from 3h to 'whenever God wills'",
+  "TTE confirmed: at least the AC is working",
+  "Official update: No official update available",
+  "Train seen near Mathura. Or was it Agra. Unclear.",
+  "Driver has finished first chai. Second chai commenced.",
+  "New ETA generated. Previous ETA filed under 'Satire'.",
+  "Railway Minister tweeted 'On time India'. Train not told.",
+];
+
 const fakeStations = [
   { name: "New Delhi", scheduled: "10:00", actual: "10:47", status: "Left Late" },
   { name: "Mathura Jn", scheduled: "11:15", actual: "12:03", status: "Left Late" },
@@ -30,24 +53,83 @@ const fakeStations = [
   { name: "Nagpur", scheduled: "21:00", actual: "--:--", status: "Expected Late" },
 ];
 
+const severityTiers = [
+  { emoji: "🔥", label: "Mild Delay",     subtitle: "< 2h",    level: 1, active: "border-orange-400 bg-orange-50", labelColor: "text-orange-700" },
+  { emoji: "🚨", label: "Serious Delay",  subtitle: "2h – 5h", level: 2, active: "border-red-400 bg-red-50",       labelColor: "text-red-700"    },
+  { emoji: "💀", label: "IRCTC Special",  subtitle: "5h+",     level: 3, active: "border-gray-700 bg-gray-900",    labelColor: "text-white"      },
+] as const;
+
+function getDelaySeverityLevel(delay: string): 1 | 2 | 3 {
+  const hours = parseInt(delay.match(/(\d+)h/)?.[1] ?? "0");
+  const mins  = parseInt(delay.match(/(\d+)m/)?.[1] ?? "0");
+  const total = hours * 60 + mins;
+  if (total >= 300) return 3;
+  if (total >= 120) return 2;
+  return 1;
+}
+
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+
+function pickRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 export default function TrainStatusPage() {
   const [trainNumber, setTrainNumber] = useState("");
-  const [searched, setSearched] = useState(false);
-  const [reason, setReason] = useState("");
+  const [searched,    setSearched]    = useState(false);
+  const [loading,     setLoading]     = useState(false);
+  // bumped on every search — used as the useMemo key so random values
+  // are stable across re-renders and only change when the user searches again
+  const [searchKey,   setSearchKey]   = useState(0);
   const [generatedReason, setGeneratedReason] = useState("");
+  const [liveUpdates, setLiveUpdates] = useState<Array<{ time: string; message: string }>>([]);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Stable random values — recomputed only when searchKey changes, not on every render
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const reason      = useMemo(() => pickRandom(delayReasons),  [searchKey]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const delayAmount = useMemo(() => pickRandom(delayAmounts),  [searchKey]);
+
+  const severityLevel = useMemo(() => getDelaySeverityLevel(delayAmount), [delayAmount]);
+
+  useEffect(() => {
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, []);
 
   const handleSearch = () => {
-    if (trainNumber.trim()) {
-      const randomReason =
-        delayReasons[Math.floor(Math.random() * delayReasons.length)];
-      setReason(randomReason);
+    if (!trainNumber.trim()) return;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    setSearched(false);
+    setLoading(true);
+    setLiveUpdates([]);
+
+    // Fake ~1.5 s network call for realism
+    setTimeout(() => {
+      setSearchKey((k) => k + 1);
       setSearched(true);
-    }
+      setLoading(false);
+
+      const now = new Date();
+      setLiveUpdates([
+        { time: formatTime(new Date(now.getTime() - 6 * 60_000)), message: pickRandom(liveUpdateMessages) },
+        { time: formatTime(new Date(now.getTime() - 3 * 60_000)), message: pickRandom(liveUpdateMessages) },
+      ]);
+
+      intervalRef.current = setInterval(() => {
+        setLiveUpdates((prev) => [
+          { time: formatTime(new Date()), message: pickRandom(liveUpdateMessages) },
+          ...prev.slice(0, 9),
+        ]);
+      }, 5000);
+    }, 1500);
   };
 
   const handleGenerateReason = () => {
-    const r = delayReasons[Math.floor(Math.random() * delayReasons.length)];
-    setGeneratedReason(r);
+    setGeneratedReason(pickRandom(delayReasons));
   };
 
   return (
@@ -76,6 +158,7 @@ export default function TrainStatusPage() {
                 onChange={(e) => {
                   setTrainNumber(e.target.value);
                   setSearched(false);
+                  setLoading(false);
                 }}
                 placeholder="Enter train number (e.g. 12301)"
                 className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -83,71 +166,201 @@ export default function TrainStatusPage() {
               />
               <button
                 onClick={handleSearch}
-                className="shrink-0 bg-primary hover:bg-blue-900 text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm"
+                disabled={loading}
+                className="shrink-0 bg-primary hover:bg-blue-900 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm"
               >
-                Check Status
+                {loading ? "Checking…" : "Check Status"}
               </button>
             </div>
 
+            {/* Skeleton Loader */}
+            {loading && (
+              <div className="mt-6 space-y-4 animate-pulse" aria-label="Loading train status">
+                {/* summary skeleton */}
+                <div className="bg-primary/20 rounded-xl h-[76px]" />
+                {/* severity meter skeleton */}
+                <div className="grid grid-cols-3 gap-2">
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className="rounded-lg border-2 border-gray-100 bg-gray-100 h-20" />
+                  ))}
+                </div>
+                {/* reason skeleton */}
+                <div className="border-l-4 border-gray-200 bg-gray-50 rounded-r-xl px-5 py-4">
+                  <div className="h-2.5 w-24 bg-gray-200 rounded mb-3" />
+                  <div className="h-4 w-2/3 bg-gray-200 rounded" />
+                </div>
+                {/* timeline skeleton */}
+                <div className="rounded-xl border border-gray-200 overflow-hidden">
+                  <div className="bg-gray-200 h-8" />
+                  {[0, 1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-3 px-4 py-3 border-b border-gray-100 last:border-0">
+                      <div className="h-4 w-28 bg-gray-100 rounded" />
+                      <div className="h-4 w-12 bg-gray-100 rounded" />
+                      <div className="h-4 w-12 bg-gray-100 rounded" />
+                      <div className="h-4 w-20 bg-gray-100 rounded" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Search Result */}
-            {searched && trainNumber && (
-              <div className="mt-6 bg-red-50 border border-red-200 rounded-xl p-5 animate-fadeIn">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl">🚆</div>
+            {searched && !loading && trainNumber && (
+              <div className="mt-6 space-y-4 animate-fadeIn">
+
+                {/* Block 1 — Train Summary */}
+                <div className="flex items-center gap-4 bg-primary rounded-xl px-5 py-4">
+                  <span className="text-4xl" aria-hidden="true">🚆</span>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center flex-wrap gap-2 mb-2">
-                      <span className="font-mono font-black text-primary text-lg">
-                        {trainNumber}
-                      </span>
-                      <span className="delay-badge">RUNNING LATE</span>
-                      <span className="bg-accent/10 text-accent font-bold text-sm px-2 py-1 rounded whitespace-nowrap">
-                        4h 23m
-                      </span>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-3 break-words">
-                      <span className="font-medium">Current reason: </span>
-                      <span className="italic text-gray-500">&ldquo;{reason}&rdquo;</span>
+                    <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-0.5">
+                      Train Number
                     </p>
-                    <div className="mt-4 overflow-x-auto rounded-lg border border-red-200">
-                      <table className="min-w-full text-xs">
-                        <thead>
-                          <tr className="bg-primary text-white">
-                            <th className="px-3 py-2 text-left font-semibold">Station</th>
-                            <th className="px-3 py-2 text-left font-semibold">Scheduled</th>
-                            <th className="px-3 py-2 text-left font-semibold">Actual</th>
-                            <th className="px-3 py-2 text-left font-semibold">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-red-100">
-                          {fakeStations.map((station) => (
-                            <tr key={station.name} className="bg-white hover:bg-red-50">
-                              <td className="px-3 py-2 font-medium text-gray-800">
-                                {station.name}
-                              </td>
-                              <td className="px-3 py-2 font-mono text-gray-600">
-                                {station.scheduled}
-                              </td>
-                              <td className="px-3 py-2 font-mono font-bold text-accent">
-                                {station.actual}
-                              </td>
-                              <td className="px-3 py-2">
-                                <span
-                                  className={`inline-block whitespace-nowrap text-xs font-bold px-2 py-0.5 rounded-full ${
-                                    station.status === "Left Late"
-                                      ? "bg-orange-100 text-orange-700"
-                                      : "bg-red-100 text-accent"
-                                  }`}
-                                >
-                                  {station.status}
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                    <p className="font-mono font-black text-white text-3xl leading-none">
+                      {trainNumber}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="delay-badge text-sm">RUNNING LATE</span>
+                    <p className="text-white font-extrabold text-2xl mt-1">{delayAmount}</p>
                   </div>
                 </div>
+
+                {/* Block 2 — Delay Severity Meter */}
+                <div className="bg-white border border-gray-200 rounded-xl px-5 py-4">
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">
+                    Delay Severity Meter
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {severityTiers.map((tier) => {
+                      const isActive = severityLevel >= tier.level;
+                      return (
+                        <div
+                          key={tier.label}
+                          className={`rounded-lg px-2 py-3 text-center border-2 transition-all ${
+                            isActive ? tier.active : "border-gray-100 bg-gray-50"
+                          }`}
+                        >
+                          <div className="text-2xl mb-1">{tier.emoji}</div>
+                          <p className={`text-xs font-bold leading-tight ${isActive ? tier.labelColor : "text-gray-400"}`}>
+                            {tier.label}
+                          </p>
+                          <p className={`text-xs mt-0.5 ${isActive ? tier.labelColor + " opacity-70" : "text-gray-300"}`}>
+                            {tier.subtitle}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Block 3 — Delay Reason callout */}
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 rounded-r-xl px-5 py-4">
+                  <p className="text-yellow-700 text-xs font-bold uppercase tracking-widest mb-1">
+                    Official Reason™
+                  </p>
+                  <p className="text-gray-800 font-medium text-base italic">
+                    &ldquo;{reason}&rdquo;
+                  </p>
+                </div>
+
+                {/* Block 4 — Station timeline */}
+                <div className="rounded-xl border border-red-200 overflow-hidden">
+                  <div className="bg-primary px-4 py-2">
+                    <p className="text-white text-xs font-bold uppercase tracking-wider">
+                      Station Timeline
+                    </p>
+                  </div>
+
+                  {/* Mobile: card list */}
+                  <ul className="divide-y divide-red-100 md:hidden">
+                    {fakeStations.map((station) => (
+                      <li key={station.name} className="bg-white px-4 py-3">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="font-semibold text-gray-800 text-sm">
+                            {station.name}
+                          </span>
+                          <span
+                            className={`whitespace-nowrap text-xs font-bold px-2 py-0.5 rounded-full ${
+                              station.status === "Left Late"
+                                ? "bg-orange-100 text-orange-700"
+                                : "bg-red-100 text-accent"
+                            }`}
+                          >
+                            {station.status}
+                          </span>
+                        </div>
+                        <div className="flex gap-4 text-xs text-gray-500">
+                          <span>
+                            Sched:{" "}
+                            <span className="font-mono text-gray-700">{station.scheduled}</span>
+                          </span>
+                          <span>
+                            Actual:{" "}
+                            <span className="font-mono font-bold text-accent">{station.actual}</span>
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Desktop: table */}
+                  <div className="hidden md:block overflow-x-auto">
+                    <table className="min-w-full text-sm">
+                      <thead>
+                        <tr className="bg-red-50 text-gray-600 text-xs uppercase tracking-wide">
+                          <th className="px-4 py-2 text-left font-semibold">Station</th>
+                          <th className="px-4 py-2 text-left font-semibold">Scheduled</th>
+                          <th className="px-4 py-2 text-left font-semibold">Actual</th>
+                          <th className="px-4 py-2 text-left font-semibold">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-red-100">
+                        {fakeStations.map((station) => (
+                          <tr key={station.name} className="bg-white hover:bg-red-50 transition-colors">
+                            <td className="px-4 py-3 font-medium text-gray-800">{station.name}</td>
+                            <td className="px-4 py-3 font-mono text-gray-600">{station.scheduled}</td>
+                            <td className="px-4 py-3 font-mono font-bold text-accent">{station.actual}</td>
+                            <td className="px-4 py-3">
+                              <span
+                                className={`inline-block whitespace-nowrap text-xs font-bold px-2 py-1 rounded-full ${
+                                  station.status === "Left Late"
+                                    ? "bg-orange-100 text-orange-700"
+                                    : "bg-red-100 text-accent"
+                                }`}
+                              >
+                                {station.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Block 5 — Fake Live Updates */}
+                <div className="rounded-xl border border-gray-700 overflow-hidden">
+                  <div className="bg-gray-900 px-4 py-2 flex items-center justify-between">
+                    <p className="text-green-400 text-xs font-mono font-bold uppercase tracking-wider">
+                      Live Updates
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-green-400 live-indicator" />
+                      <span className="text-green-400 text-xs font-bold">LIVE</span>
+                    </div>
+                  </div>
+                  <ul className="bg-gray-950 divide-y divide-gray-800 max-h-48 overflow-y-auto">
+                    {liveUpdates.map((update, i) => (
+                      <li key={i} className="px-4 py-2.5 flex items-start gap-3">
+                        <span className="text-green-500 font-mono text-xs shrink-0 mt-0.5">
+                          [{update.time}]
+                        </span>
+                        <span className="text-gray-300 text-sm">{update.message}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
               </div>
             )}
           </div>

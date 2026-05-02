@@ -1,5 +1,14 @@
 'use client';
 
+function getDelaySeverityEmoji(delay: string): string {
+  const hours = parseInt(delay.match(/(\d+)h/)?.[1] ?? "0");
+  const mins  = parseInt(delay.match(/(\d+)m/)?.[1] ?? "0");
+  const total = hours * 60 + mins;
+  if (total >= 300) return "💀";
+  if (total >= 120) return "🚨";
+  return "🔥";
+}
+
 export interface TrainData {
   number: string;
   name: string;
