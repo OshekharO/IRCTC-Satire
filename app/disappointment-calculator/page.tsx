@@ -275,14 +275,14 @@ function ScoreGauge({ score, grade, gradeColor }: { score: number; grade: string
         />
         <circle cx={cx} cy={cy} r="4" fill="#00285F" />
         {/* Score text */}
-        <text x={cx} y={cy + 20} textAnchor="middle" fontSize="18" fontWeight="900" fill="#E31837">
+        <text x={cx} y={cy + 14} textAnchor="middle" fontSize="18" fontWeight="900" fill="#E31837">
           {score}
         </text>
-        <text x={cx} y={cy + 30} textAnchor="middle" fontSize="7" fill="#6b7280">
+        <text x={cx} y={cy + 22} textAnchor="middle" fontSize="7" fill="#6b7280">
           FRUSTRATION SCORE™
         </text>
       </svg>
-      <div className="text-center -mt-2">
+      <div className="text-center mt-1">
         <span className={`text-5xl font-black ${gradeColor}`}>{grade}</span>
         <p className="text-xs text-gray-500 mt-0.5">
           {grade === "S"
