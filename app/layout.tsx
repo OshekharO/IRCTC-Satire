@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://irctc.eu.org"),
@@ -67,6 +68,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.irctc.eu.org",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.svg",
+  },
 };
 
 const jsonLd = {
@@ -89,7 +96,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN">
+    <html lang="en-IN" className="scroll-smooth motion-reduce:scroll-auto">
       <head>
         <script
           type="application/ld+json"
@@ -100,6 +107,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );

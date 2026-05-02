@@ -1,8 +1,29 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import HeroSection from "@/components/HeroSection";
-import TrainStatusBoard from "@/components/TrainStatusBoard";
+
+// Lazy-load the train status board — it is a large table component that lives
+// below the fold; deferring it reduces the initial JS evaluated on page load.
+const TrainStatusBoard = dynamic(() => import("@/components/TrainStatusBoard"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-xl border border-gray-200 overflow-hidden animate-pulse">
+      <div className="bg-primary h-10" />
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} className="flex gap-4 px-4 py-3 border-b border-gray-100 last:border-0">
+          <div className="h-4 w-16 bg-gray-200 rounded" />
+          <div className="h-4 w-32 bg-gray-200 rounded" />
+          <div className="h-4 w-12 bg-gray-200 rounded" />
+          <div className="h-4 w-24 bg-gray-200 rounded" />
+          <div className="h-4 w-16 bg-gray-200 rounded" />
+          <div className="h-4 w-20 bg-gray-200 rounded" />
+        </div>
+      ))}
+    </div>
+  ),
+});
 
 const delayReasons = [
   "Driver stopped for chai break (2.5 hours)",

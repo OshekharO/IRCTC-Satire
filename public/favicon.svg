@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background: rounded dark-blue square (IRCTC brand colour) -->
+  <rect width="512" height="512" rx="88" fill="#00285F"/>
+
+  <!-- ── LOCOMOTIVE BODY ── -->
+  <!-- Main coach body -->
+  <rect x="56" y="208" width="340" height="148" rx="28" fill="white"/>
+
+  <!-- Cab (front nose, right-hand side) -->
+  <rect x="360" y="176" width="96" height="180" rx="22" fill="#E31837"/>
+
+  <!-- Cab front window -->
+  <rect x="374" y="204" width="60" height="56" rx="10" fill="white" opacity="0.92"/>
+
+  <!-- Headlight -->
+  <circle cx="430" cy="322" r="14" fill="white"/>
+  <circle cx="430" cy="322" r="7"  fill="#E31837"/>
+
+  <!-- Side windows (3 rectangular panes) -->
+  <rect x="104" y="236" width="68" height="56" rx="10" fill="#00285F"/>
+  <rect x="210" y="236" width="68" height="56" rx="10" fill="#00285F"/>
+  <rect x="316" y="236" width="36" height="56" rx="10" fill="#00285F"/>
+
+  <!-- Coupler / buffer (left) -->
+  <rect x="32"  y="264" width="28" height="36" rx="6" fill="#E31837"/>
+  <rect x="20"  y="270" width="16" height="24" rx="4" fill="#cccccc"/>
+
+  <!-- Chimney / exhaust stack -->
+  <rect x="110" y="152" width="48" height="60" rx="10" fill="white"/>
+  <rect x="102" y="144" width="64" height="20" rx="6"  fill="white"/>
+
+  <!-- ── WHEELS (4 total) ── -->
+  <!-- Front-left -->
+  <circle cx="152" cy="386" r="54" fill="#1a1a1a"/>
+  <circle cx="152" cy="386" r="40" fill="#E31837"/>
+  <circle cx="152" cy="386" r="16" fill="white"/>
+  <circle cx="152" cy="386" r="6"  fill="#1a1a1a"/>
+
+  <!-- Front-right -->
+  <circle cx="284" cy="386" r="54" fill="#1a1a1a"/>
+  <circle cx="284" cy="386" r="40" fill="#E31837"/>
+  <circle cx="284" cy="386" r="16" fill="white"/>
+  <circle cx="284" cy="386" r="6"  fill="#1a1a1a"/>
+
+  <!-- Rear-left (smaller drive wheel under cab) -->
+  <circle cx="396" cy="390" r="46" fill="#1a1a1a"/>
+  <circle cx="396" cy="390" r="34" fill="#E31837"/>
+  <circle cx="396" cy="390" r="13" fill="white"/>
+  <circle cx="396" cy="390" r="5"  fill="#1a1a1a"/>
+
+  <!-- ── RAIL TRACKS ── -->
+  <rect x="24"  y="444" width="464" height="14" rx="7" fill="white" opacity="0.20"/>
+  <rect x="24"  y="462" width="464" height="14" rx="7" fill="white" opacity="0.20"/>
+  <!-- Rail ties -->
+  <rect x="48"  y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="112" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="176" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="240" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="304" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="368" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+  <rect x="432" y="440" width="16" height="40" rx="3" fill="white" opacity="0.14"/>
+</svg>

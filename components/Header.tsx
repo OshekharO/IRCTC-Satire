@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -27,6 +27,19 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const [retryMsg, setRetryMsg] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    // Listens to scroll to deepen the header shadow when the page is scrolled.
+    // The BackToTop component has its own separate listener (different threshold,
+    // different state) — both use { passive: true } so there is no scroll
+    // performance impact from having two listeners.
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Sync immediately so scroll-restored pages show the correct shadow state.
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleBookTicket = () => {
     setRetryCount(0);
@@ -42,7 +55,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-primary text-white shadow-lg sticky top-0 z-50">
+      <header className={`bg-primary text-white sticky top-0 z-50 transition-shadow duration-200 ${scrolled ? "shadow-xl" : "shadow-lg"}`}>
         {/* Satirical disclaimer strip */}
         <div className="bg-accent text-white text-center text-xs py-1 px-4 font-medium">
           ⚠️ SATIRE / PARODY WEBSITE — Not affiliated with IRCTC or Indian Railways. For entertainment only.
@@ -86,6 +99,7 @@ export default function Header() {
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="md:hidden p-2 rounded-md hover:bg-blue-800 transition-colors"
                 aria-label="Toggle menu"
+                aria-expanded={menuOpen}
               >
                 <div className="space-y-1">
                   <span
@@ -108,13 +122,19 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
-          {menuOpen && (
-            <div className="md:hidden pb-4 border-t border-blue-700 mt-2 pt-3 space-y-1">
+          {/* Mobile Menu — animated slide-down */}
+          <div
+            aria-hidden={!menuOpen}
+            className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+              menuOpen ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="pb-4 border-t border-blue-700 mt-2 pt-3 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
+                  tabIndex={menuOpen ? 0 : -1}
                   onClick={() => setMenuOpen(false)}
                   className="block px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-800 hover:text-white transition-colors"
                 >
@@ -123,12 +143,13 @@ export default function Header() {
               ))}
               <button
                 onClick={handleBookTicket}
+                tabIndex={menuOpen ? 0 : -1}
                 className="w-full text-left px-3 py-2 rounded-md text-sm font-bold text-white bg-accent hover:bg-red-700 transition-colors mt-2"
               >
                 🎫 Book Ticket
               </button>
             </div>
-          )}
+          </div>
         </div>
       </header>
 

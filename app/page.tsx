@@ -1,14 +1,23 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import TestimonialCard from "@/components/TestimonialCard";
 import NewsTickerBanner from "@/components/NewsTickerBanner";
-import ErrorModal from "@/components/ErrorModal";
 import MemeCard from "@/components/MemeCard";
 import ShareButtons from "@/components/ShareButtons";
+import FadeInSection from "@/components/FadeInSection";
+
+// Lazy-load the error modal — it is never needed until 3 seconds after mount
+// and only if the user keeps the page open, so there is no reason to include
+// it in the initial JS bundle.
+const ErrorModal = dynamic(() => import("@/components/ErrorModal"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const steps = [
   {
@@ -172,25 +181,27 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {steps.map((step, idx) => (
-              <div
-                key={step.num}
-                className={`step-card relative bg-gray-50 rounded-2xl p-6 border border-gray-200 ${
-                  idx === 4 ? "md:col-span-2 lg:col-span-1" : ""
-                }`}
-              >
-                <div className="absolute -top-3 -left-3 bg-primary text-white text-xs font-black w-8 h-8 rounded-full flex items-center justify-center shadow-md">
-                  {step.num}
+          <FadeInSection>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {steps.map((step, idx) => (
+                <div
+                  key={step.num}
+                  className={`step-card relative bg-gray-50 rounded-2xl p-6 border border-gray-200 ${
+                    idx === 4 ? "md:col-span-2 lg:col-span-1" : ""
+                  }`}
+                >
+                  <div className="absolute -top-3 -left-3 bg-primary text-white text-xs font-black w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+                    {step.num}
+                  </div>
+                  <div className="text-4xl mb-3">{step.icon}</div>
+                  <h3 className="font-bold text-gray-800 mb-2">{step.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
-                <div className="text-4xl mb-3">{step.icon}</div>
-                <h3 className="font-bold text-gray-800 mb-2">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
@@ -214,20 +225,22 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="step-card bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
-              >
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="font-bold text-gray-800 mb-3">{feature.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {feature.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FadeInSection>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {features.map((feature) => (
+                <div
+                  key={feature.title}
+                  className="step-card bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+                >
+                  <div className="text-5xl mb-4">{feature.icon}</div>
+                  <h3 className="font-bold text-gray-800 mb-3">{feature.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {feature.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
@@ -332,16 +345,18 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <TestimonialCard
-                key={t.name}
-                name={t.name}
-                location={t.location}
-                quote={t.quote}
-              />
-            ))}
-          </div>
+          <FadeInSection>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {testimonials.map((t) => (
+                <TestimonialCard
+                  key={t.name}
+                  name={t.name}
+                  location={t.location}
+                  quote={t.quote}
+                />
+              ))}
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
@@ -357,36 +372,38 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            <MemeCard
-              topText="Me: Opens IRCTC at 9:59 AM sharp"
-              bottomText="Server at 10:00 AM: I sleep"
-              emoji="💤"
-              variant="dark"
-              bgColor="bg-gray-800"
-            />
-            <MemeCard
-              topText="IRCTC Captcha: Identify trains"
-              bottomText="Literally a smudge from 1987"
-              emoji="😵"
-              variant="desi"
-              bgColor="bg-gray-800"
-            />
-            <MemeCard
-              topText="Tatkal Queue: 80,000 people"
-              bottomText="Tatkal Seats: 72"
-              emoji="💀"
-              variant="dark"
-              bgColor="bg-gray-900"
-            />
-            <MemeCard
-              topText="Payment deducted ✅"
-              bottomText="Ticket issued ❌"
-              emoji="🙃"
-              variant="desi"
-              bgColor="bg-gray-900"
-            />
-          </div>
+          <FadeInSection>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+              <MemeCard
+                topText="Me: Opens IRCTC at 9:59 AM sharp"
+                bottomText="Server at 10:00 AM: I sleep"
+                emoji="💤"
+                variant="dark"
+                bgColor="bg-gray-800"
+              />
+              <MemeCard
+                topText="IRCTC Captcha: Identify trains"
+                bottomText="Literally a smudge from 1987"
+                emoji="😵"
+                variant="desi"
+                bgColor="bg-gray-800"
+              />
+              <MemeCard
+                topText="Tatkal Queue: 80,000 people"
+                bottomText="Tatkal Seats: 72"
+                emoji="💀"
+                variant="dark"
+                bgColor="bg-gray-900"
+              />
+              <MemeCard
+                topText="Payment deducted ✅"
+                bottomText="Ticket issued ❌"
+                emoji="🙃"
+                variant="desi"
+                bgColor="bg-gray-900"
+              />
+            </div>
+          </FadeInSection>
 
           {/* Share row */}
           <div className="bg-white/5 rounded-2xl p-6 text-center">
@@ -414,64 +431,66 @@ export default function HomePage() {
               Everything you wanted to know about IRCTC but were too frustrated to ask.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                href: "/why-tatkal-fails",
-                icon: "🔍",
-                title: "Why Tatkal Always Fails",
-                desc: "6 root causes — bots, agents, servers, captcha, payment, and maths.",
-                badge: "Most Asked",
-                badgeCls: "bg-red-100 text-red-700",
-              },
-              {
-                href: "/tatkal-tips",
-                icon: "💡",
-                title: "Tatkal Booking Tips",
-                desc: "11 tips to book tatkal fast — including the 1 that actually works.",
-                badge: "Popular",
-                badgeCls: "bg-blue-100 text-blue-700",
-              },
-              {
-                href: "/hall-of-shame",
-                icon: "🏛️",
-                title: "Hall of Shame",
-                desc: "IRCTC's greatest failures: legendary crashes, impossible captchas, record delays.",
-                badge: "Classic",
-                badgeCls: "bg-orange-100 text-orange-700",
-              },
-              {
-                href: "/agent-network",
-                icon: "📞",
-                title: "The Agent Network",
-                desc: "When IRCTC fails you (and it will), meet the people who never do.",
-                badge: "Always Available",
-                badgeCls: "bg-green-100 text-green-700",
-              },
-            ].map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                className="group bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-md p-5 transition-all flex flex-col gap-3"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-3xl">{card.icon}</span>
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${card.badgeCls}`}>
-                    {card.badge}
+          <FadeInSection>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                {
+                  href: "/why-tatkal-fails",
+                  icon: "🔍",
+                  title: "Why Tatkal Always Fails",
+                  desc: "6 root causes — bots, agents, servers, captcha, payment, and maths.",
+                  badge: "Most Asked",
+                  badgeCls: "bg-red-100 text-red-700",
+                },
+                {
+                  href: "/tatkal-tips",
+                  icon: "💡",
+                  title: "Tatkal Booking Tips",
+                  desc: "11 tips to book tatkal fast — including the 1 that actually works.",
+                  badge: "Popular",
+                  badgeCls: "bg-blue-100 text-blue-700",
+                },
+                {
+                  href: "/hall-of-shame",
+                  icon: "🏛️",
+                  title: "Hall of Shame",
+                  desc: "IRCTC's greatest failures: legendary crashes, impossible captchas, record delays.",
+                  badge: "Classic",
+                  badgeCls: "bg-orange-100 text-orange-700",
+                },
+                {
+                  href: "/agent-network",
+                  icon: "📞",
+                  title: "The Agent Network",
+                  desc: "When IRCTC fails you (and it will), meet the people who never do.",
+                  badge: "Always Available",
+                  badgeCls: "bg-green-100 text-green-700",
+                },
+              ].map((card) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="group bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-md p-5 transition-all flex flex-col gap-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl">{card.icon}</span>
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${card.badgeCls}`}>
+                      {card.badge}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-800 group-hover:text-primary transition-colors mb-1">
+                      {card.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
+                  </div>
+                  <span className="text-primary text-xs font-semibold mt-auto group-hover:underline">
+                    Read more →
                   </span>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-800 group-hover:text-primary transition-colors mb-1">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
-                </div>
-                <span className="text-primary text-xs font-semibold mt-auto group-hover:underline">
-                  Read more →
-                </span>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
