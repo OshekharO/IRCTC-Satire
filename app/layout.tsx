@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://irctc-satire.vercel.app"),
+  metadataBase: new URL("https://www.irctc.eu.org"),
   title: {
     default: "IRCTC Satire | India's Most Reliable Ticket Frustration System",
     template: "%s | IRCTC Satire",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://irctc-satire.vercel.app",
+    url: "https://www.irctc.eu.org",
     siteName: "IRCTC Satire",
     title: "IRCTC Satire | India's Most Reliable Ticket Frustration System",
     description:
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     creator: "@IRCTC_Problems",
   },
   alternates: {
-    canonical: "https://irctc-satire.vercel.app",
+    canonical: "https://www.irctc.eu.org",
   },
 };
 
@@ -73,7 +73,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "IRCTC Satire",
-  url: "https://irctc-satire.vercel.app",
+  url: "https://www.irctc.eu.org",
   description:
     "A satirical parody of IRCTC — India's official ticket booking nightmare.",
   author: {

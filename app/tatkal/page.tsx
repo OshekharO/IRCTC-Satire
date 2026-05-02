@@ -141,7 +141,7 @@ export default function TatkalPage() {
       <div className="bg-white border-b border-gray-100 py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <ShareButtons
-            url="https://irctc-satire.vercel.app/tatkal"
+            url="https://www.irctc.eu.org/tatkal"
             title="Tatkal Booking — The Great Indian Lottery | IRCTC Satire"
             message="Bhai tatkal ka scene dekh 😂 — 0.3 seconds mein SOLD OUT. Ye hai India ka asli experience!"
           />

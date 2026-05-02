@@ -263,7 +263,7 @@ export default function HomePage() {
               Tag karo apne us dost ko jisne last week tatkal mein fail hua 👇
             </p>
             <ShareButtons
-              url="https://irctc-satire.vercel.app"
+              url="https://www.irctc.eu.org"
               title="IRCTC Satire — India's Most Reliable Ticket Frustration System"
               message="Bhai ye site dekh 😂 IRCTC ka saccha haal — tatkal, delays, agents sab kuch"
               className="justify-center"

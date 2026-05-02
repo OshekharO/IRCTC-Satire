@@ -5,7 +5,7 @@ import ShareButtons from "@/components/ShareButtons";
 import MemeCard from "@/components/MemeCard";
 import RelatedArticles from "@/components/RelatedArticles";
 
-const BASE_URL = "https://irctc-satire.vercel.app";
+const BASE_URL = "https://www.irctc.eu.org";
 const PAGE_URL = `${BASE_URL}/tatkal-tips`;
 
 export const metadata: Metadata = {
