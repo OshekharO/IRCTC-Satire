@@ -69,7 +69,7 @@ export default function TrainStatusPage() {
               Enter any train number. We guarantee it&apos;s late.
             </p>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 value={trainNumber}
@@ -83,7 +83,7 @@ export default function TrainStatusPage() {
               />
               <button
                 onClick={handleSearch}
-                className="bg-primary hover:bg-blue-900 text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm"
+                className="shrink-0 bg-primary hover:bg-blue-900 text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm"
               >
                 Check Status
               </button>
@@ -94,7 +94,7 @@ export default function TrainStatusPage() {
               <div className="mt-6 bg-red-50 border border-red-200 rounded-xl p-5 animate-fadeIn">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl">🚆</div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="font-mono font-black text-primary text-lg">
                         {trainNumber}
@@ -132,7 +132,7 @@ export default function TrainStatusPage() {
                               </td>
                               <td className="px-3 py-2">
                                 <span
-                                  className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                  className={`inline-block whitespace-nowrap text-xs font-bold px-2 py-0.5 rounded-full ${
                                     station.status === "Left Late"
                                       ? "bg-orange-100 text-orange-700"
                                       : "bg-red-100 text-accent"

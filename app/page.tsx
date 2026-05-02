@@ -88,7 +88,7 @@ const testimonials = [
 ];
 
 const homeStats = [
-  { value: 2300000000, label: "Failures Served", suffix: "+" },
+  { value: 230, label: "Failures Served", suffix: " Cr+" },
   { value: 99, label: "Tatkal Disappointment Rate", suffix: ".9%" },
   { value: 10000, label: "Certified Agent Partners", suffix: "+" },
   { value: 4, label: "Average Delay (Hours)", suffix: ".7h" },
