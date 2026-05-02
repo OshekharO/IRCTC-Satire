@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import HeroSection from "@/components/HeroSection";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedArticles from "@/components/RelatedArticles";
+import TweetCard from "@/components/TweetCard";
 
 // Lazy-load the Tatkal timer — it uses setInterval/countdown and is rendered
 // below the fold, so deferring it keeps the initial bundle smaller.
@@ -110,6 +111,110 @@ const faqs = [
   {
     q: "Is there any way to guarantee a Tatkal ticket?",
     a: "We're glad you asked! Our Agent Network page has all the information you need. Tell them IRCTC sent you. They'll laugh, but they'll understand.",
+  },
+];
+
+const userExperiences = [
+  {
+    name: "Saurabh Tiwari",
+    location: "Lucknow → Mumbai",
+    time: "10:00 AM, last Tuesday",
+    story:
+      "Set 3 alarms for 9:55 AM. Opened IRCTC on phone, laptop, AND my dad's tablet — all three logged in. The clock hit 10:00:00. I clicked 'Book Now' on all three simultaneously. Phone: session expired. Laptop: payment page loaded (I screamed in joy). Tablet: still loading. I entered card details in 8 seconds — personal record. Hit Pay. 'Your payment of ₹2,140 has been deducted.' Relief. Then: 'Booking Failed due to seat unavailability.' The seats were gone during the 8 seconds it took my hands to stop shaking.",
+    tags: ["AC 3-Tier Tatkal", "0.3s sellout", "Payment deducted"],
+  },
+  {
+    name: "Meenakshi Iyer",
+    location: "Chennai → Delhi",
+    time: "10:02 AM, last Friday",
+    story:
+      "I am a software engineer. I wrote a script to automate the booking. IRCTC blocked my IP within 4 seconds. I then tried manually. Solved 6 captchas — each wrongly rejected. On the 7th, it accepted, but my session had expired. Logged in again. Solved 3 more captchas. Reached passenger details. Filled everything. Hit Next. New captcha appeared. I stared at my screen for 45 seconds. My script would have been faster. IRCTC out-engineered me, a person whose job is to engineer things.",
+    tags: ["IP blocked", "Captcha hell", "Session expired"],
+  },
+  {
+    name: "Hardeep Singh",
+    location: "Amritsar → Kolkata",
+    time: "9:58 AM, this morning",
+    story:
+      "Bhai, I want to tell you about the 4G situation. I had full bars. IRCTC loaded at 9:58 AM. I was ready. 10:00 AM — I clicked. Page refreshed on its own. Just refreshed. No reason. Like IRCTC looked at my hope and thought, 'Not today.' Tried again at 10:00:02. All seats gone. I sat there for a while. Then I called Pappu bhaiya (agent). He said 'haan bhai, 3 minutes pehle hi confirm ho gaya tha mera.' I am not angry. I am just... educated now.",
+    tags: ["Page refresh", "Full bars 4G", "Agent confirmed in 3 mins"],
+  },
+  {
+    name: "Deepa Nair",
+    location: "Kochi → Bengaluru",
+    time: "10:05 AM, last Saturday",
+    story:
+      "My experience was unique. I actually got to the payment page. I was shaking. I typed my UPI ID. It said 'Invalid UPI ID.' I typed it again — same message. Third time, it said 'Too many attempts, try a different payment method.' I entered card details. OTP arrived. I typed OTP. 'OTP expired.' Another OTP arrived. I entered it. 'Transaction failed, please try again.' I tried again. 'Duplicate transaction request detected.' At this point I started laughing because what else can you do. Money was blocked for 5 days. Ticket: 0.",
+    tags: ["UPI failed", "OTP expired", "Duplicate transaction"],
+  },
+];
+
+const tweetData = [
+  {
+    handle: "frustrated_raj",
+    username: "Rajesh Pandey",
+    avatar: "R",
+    text: "Set 4 alarms for 9:55 AM. Had IRCTC open on 2 phones and a laptop. Solved captcha on all 3. Hit book simultaneously at 10:00:00. All 3 said SOLD OUT by 10:00:01.\n\nBots wake up earlier than me. Respect honestly. 😭\n\n#IRCTC #Tatkal #IndianRailways",
+    time: "2h",
+    likes: "14.2K",
+    retweets: "3.1K",
+    replies: "847",
+    verified: false,
+  },
+  {
+    handle: "priya_mumbai99",
+    username: "Priya S.",
+    avatar: "P",
+    text: "IRCTC charged me ₹2,140. No ticket. Called customer support. On hold 45 mins. Got disconnected.\n\nFiled TDR. Got email: 'Your refund will be processed in 90 working days.'\n\n90. Working. Days.\n\nMy train is tomorrow. 😂 #IRCTC",
+    time: "5h",
+    likes: "28.7K",
+    retweets: "6.4K",
+    replies: "1.2K",
+    verified: false,
+  },
+  {
+    handle: "techbro_ankit",
+    username: "Ankit Verma 🧑‍💻",
+    avatar: "A",
+    text: "Me: writes selenium script to automate tatkal booking\nIRCTC: blocks IP in 3 seconds\nMe: uses VPN\nIRCTC: new captcha type, unsolvable by humans or bots\nMe: solves it manually\nIRCTC: session expired\n\nI have a CS degree from IIT. IRCTC humbled me. 🫡",
+    time: "1d",
+    likes: "52.1K",
+    retweets: "11.8K",
+    replies: "2.4K",
+    verified: false,
+  },
+  {
+    handle: "delhi_to_mumbai",
+    username: "Niharika Joshi",
+    avatar: "N",
+    text: "tatkal booking experience speedrun:\n\n9:55 - login ✅\n9:57 - search train ✅\n9:59 - select seat ✅\n10:00 - captcha ✅\n10:00:03 - payment page ✅\n10:00:08 - OTP received ✅\n10:00:12 - OTP entered ✅\n10:00:13 - 'Booking failed. Seat no longer available'\n\nI was 13 seconds too slow. 13 seconds. 🙂",
+    time: "3h",
+    likes: "41.3K",
+    retweets: "9.2K",
+    replies: "1.8K",
+    verified: false,
+  },
+  {
+    handle: "sardar_travels",
+    username: "Gurpreet Singh",
+    avatar: "G",
+    text: "My cousin is an IRCTC agent. At 10 AM sharp I'm still typing username. He sends me a photo of my confirmed ticket.\n\nHe booked it for me. Without asking. Because he knew.\n\nI don't know whether to thank him or feel deeply understood. 😭 #Tatkal",
+    time: "6h",
+    likes: "19.5K",
+    retweets: "4.7K",
+    replies: "963",
+    verified: false,
+  },
+  {
+    handle: "infra_nerd_ravi",
+    username: "Ravi Shankar",
+    avatar: "V",
+    text: "Hot take: IRCTC's tatkal system is actually working exactly as designed.\n\nDesigned by whom? That's the investigation nobody wants to fund.\n\n#IRCTC #Tatkal #IndianRailways",
+    time: "2d",
+    likes: "67.4K",
+    retweets: "15.6K",
+    replies: "3.1K",
+    verified: false,
   },
 ];
 
@@ -359,6 +464,85 @@ export default function TatkalPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Real User Experiences */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-extrabold text-primary mb-3">
+              Real Tatkal Experiences
+            </h2>
+            <p className="text-gray-500">
+              Submitted by survivors. Names changed to protect the traumatized.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {userExperiences.map((exp, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center text-white font-bold text-base flex-shrink-0">
+                    {exp.name.charAt(0)}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-gray-800">{exp.name}</p>
+                    <p className="text-gray-400 text-xs">
+                      {exp.location} &nbsp;·&nbsp; {exp.time}
+                    </p>
+                  </div>
+                  <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0">
+                    Verified Victim
+                  </span>
+                </div>
+
+                <blockquote className="text-gray-700 text-sm leading-relaxed italic mb-4 border-l-4 border-primary/30 pl-4">
+                  &ldquo;{exp.story}&rdquo;
+                </blockquote>
+
+                <div className="flex flex-wrap gap-2">
+                  {exp.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="bg-gray-100 text-gray-600 text-xs px-2.5 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* X / Twitter Wall */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-extrabold text-primary mb-3">
+              What 𝕏 Users Are Saying
+            </h2>
+            <p className="text-gray-500">
+              The internet has feelings about Tatkal. Strong ones.
+            </p>
+          </div>
+
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            {tweetData.map((tweet, idx) => (
+              <div key={idx} className="break-inside-avoid mb-4">
+                <TweetCard {...tweet} />
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs text-gray-400 mt-6 text-center italic">
+            * Posts are illustrative and satirical, based on common experiences shared publicly about IRCTC Tatkal booking.
+          </p>
         </div>
       </section>
 
