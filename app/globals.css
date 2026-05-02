@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #00285F;
+  --accent: #E31837;
+  --warning: #FF6B00;
+  --success: #00A651;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  background-color: #f8f9fa;
+  color: #1a1a1a;
+}
+
+/* News Ticker */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.ticker-content {
+  display: inline-block;
+  animation: ticker-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+/* Blink animation for train status */
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.status-blink {
+  animation: status-blink 1.2s ease-in-out infinite;
+}
+
+/* Shake animation for error states */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.6s ease-in-out;
+}
+
+/* Pulse for "LIVE" indicator */
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227, 24, 55, 0.7); }
+  50% { box-shadow: 0 0 0 8px rgba(227, 24, 55, 0); }
+}
+
+.live-indicator {
+  animation: live-pulse 1.5s ease-in-out infinite;
+}
+
+/* Counter animation */
+@keyframes counter-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.counter-animate {
+  animation: counter-up 0.6s ease-out forwards;
+}
+
+/* Error modal overlay */
+.modal-overlay {
+  backdrop-filter: blur(2px);
+}
+
+/* IRCTC-style gradient background */
+.hero-gradient {
+  background: linear-gradient(135deg, #00285F 0%, #003d8f 50%, #001a3d 100%);
+}
+
+/* Step card hover effect */
+.step-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 40, 95, 0.15);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00285F;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #001a3d;
+}
+
+/* Table stripe */
+.table-stripe tr:nth-child(even) {
+  background-color: rgba(0, 40, 95, 0.04);
+}
+
+/* Delay badge */
+.delay-badge {
+  background: linear-gradient(90deg, #E31837, #ff4d6d);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Agent card glow */
+.agent-card {
+  transition: all 0.3s ease;
+}
+
+.agent-card:hover {
+  box-shadow: 0 0 20px rgba(227, 24, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Disclaimer banner */
+.disclaimer-banner {
+  background: repeating-linear-gradient(
+    45deg,
+    #E31837,
+    #E31837 10px,
+    #cc0000 10px,
+    #cc0000 20px
+  );
+}
+
+/* Windows XP-style error */
+.xp-title-bar {
+  background: linear-gradient(to right, #0055e5, #2480fe);
+}
