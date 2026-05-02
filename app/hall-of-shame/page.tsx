@@ -1,4 +1,43 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
+
+const BASE_URL = "https://irctc.eu.org";
+const PAGE_URL = `${BASE_URL}/hall-of-shame`;
+
+export const metadata: Metadata = {
+  title: "Hall of Shame — A Museum of Indian Railway Excellence",
+  description:
+    "A curated collection of IRCTC's finest achievements in the art of failure — the 4-hour booking process, disappearing buttons, payment roulette, and the captcha that sees your soul.",
+  keywords: [
+    "IRCTC hall of shame",
+    "IRCTC worst UX",
+    "IRCTC booking failure",
+    "Indian Railways UX disasters",
+    "IRCTC captcha impossible",
+    "IRCTC session expired",
+    "IRCTC payment failed",
+    "Indian Railways comedy",
+    "IRCTC satire",
+  ],
+  openGraph: {
+    type: "website",
+    url: PAGE_URL,
+    title: "Hall of Shame — A Museum of Indian Railway Excellence",
+    description:
+      "Entry is free. Your time is not. A satirical museum of IRCTC's greatest UX disasters — the 4-hour booking, impossible captchas, and payment roulette since 1999.",
+    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "IRCTC Hall of Shame" }],
+    siteName: "IRCTC Satire",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hall of Shame | IRCTC Satire",
+    description:
+      "A museum of IRCTC's finest failures — impossible captchas, session timeouts, and the legendary 4-hour booking process.",
+    images: [`${BASE_URL}/og-image.png`],
+  },
+  alternates: { canonical: PAGE_URL },
+};
 
 const uxDisasters = [
   {

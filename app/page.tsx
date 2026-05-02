@@ -66,6 +66,49 @@ const features = [
   },
 ];
 
+const promisedVsReality = [
+  {
+    category: "Booking Speed",
+    promised: "⚡ Lightning fast ticket booking in seconds",
+    reality: "💀 503 error before you finish typing your name",
+  },
+  {
+    category: "Session Security",
+    promised: "🔐 Secure, uninterrupted booking session",
+    reality: "⏳ Session expired while you blinked. Start over.",
+  },
+  {
+    category: "Tatkal Availability",
+    promised: "🎟️ Tatkal quota for genuine last-minute travellers",
+    reality: "🤖 All 72 seats sold to bots in 0.3 seconds. Enjoy WL/99.",
+  },
+  {
+    category: "Payment Success",
+    promised: "💳 Seamless, secure payment gateway",
+    reality: "😭 Money deducted. No ticket. No refund ETA. No explanation.",
+  },
+  {
+    category: "Captcha",
+    promised: "🛡️ Quick security check to keep bots out",
+    reality: "🧩 Identify 11 blurry trains from a 1987 parking-lot cam",
+  },
+  {
+    category: "Customer Support",
+    promised: "📞 24/7 dedicated support for all queries",
+    reality: "🎵 Hold music for 2 hours then disconnected. Twitter DM: no reply.",
+  },
+  {
+    category: "Train Punctuality",
+    promised: "🚄 Real-time schedule for on-time arrivals",
+    reality: "📺 Display board shows 'ON TIME' for a train delayed 9 hours",
+  },
+  {
+    category: "Waitlist",
+    promised: "📋 Waitlist clears automatically closer to journey date",
+    reality: "♾️ WL/47 → WL/46 → WL/46 → journey date → WL/46",
+  },
+];
+
 const testimonials = [
   {
     name: "Rajesh Kumar",
@@ -185,6 +228,94 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Promised vs. Reality */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-accent/10 text-accent text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+              Reality Check
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-primary mb-4">
+              Promised vs. Reality
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              The official IRCTC press-release universe versus the universe the
+              rest of us live in.
+            </p>
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+            <table className="w-full text-sm">
+              <thead>
+                <tr>
+                  <th className="bg-gray-50 border-b border-gray-200 px-5 py-3.5 text-left text-xs font-extrabold text-gray-400 uppercase tracking-widest w-36">
+                    Feature
+                  </th>
+                  <th className="bg-success/10 border-b border-success/20 px-5 py-3.5 text-left text-xs font-extrabold text-success uppercase tracking-widest">
+                    ✅ What IRCTC Says
+                  </th>
+                  <th className="bg-accent/10 border-b border-accent/20 px-5 py-3.5 text-left text-xs font-extrabold text-accent uppercase tracking-widest">
+                    😭 What Actually Happens
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {promisedVsReality.map((row, i) => (
+                  <tr
+                    key={row.category}
+                    className={i % 2 === 0 ? "bg-white" : "bg-gray-50/60"}
+                  >
+                    <td className="px-5 py-4 font-bold text-gray-700 border-r border-gray-100 align-top">
+                      {row.category}
+                    </td>
+                    <td className="px-5 py-4 text-gray-600 border-r border-gray-100 align-top">
+                      {row.promised}
+                    </td>
+                    <td className="px-5 py-4 text-gray-800 font-medium align-top">
+                      {row.reality}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile card stack */}
+          <div className="md:hidden space-y-4">
+            {promisedVsReality.map((row) => (
+              <div
+                key={row.category}
+                className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
+              >
+                <div className="bg-gray-50 px-4 py-2 text-xs font-extrabold text-gray-500 uppercase tracking-widest border-b border-gray-200">
+                  {row.category}
+                </div>
+                <div className="grid grid-cols-2 divide-x divide-gray-100">
+                  <div className="bg-success/5 px-4 py-3">
+                    <p className="text-[10px] font-extrabold text-success uppercase tracking-widest mb-1">
+                      They Say
+                    </p>
+                    <p className="text-gray-600 text-sm leading-snug">{row.promised}</p>
+                  </div>
+                  <div className="bg-accent/5 px-4 py-3">
+                    <p className="text-[10px] font-extrabold text-accent uppercase tracking-widest mb-1">
+                      Reality
+                    </p>
+                    <p className="text-gray-800 font-medium text-sm leading-snug">{row.reality}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Shareable nudge */}
+          <p className="text-center text-gray-400 text-xs mt-8 italic">
+            Tag karo apne us dost ko jo abhi bhi IRCTC par believe karta hai 👇
+          </p>
         </div>
       </section>
 

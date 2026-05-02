@@ -308,7 +308,7 @@ export default function TatkalTipsPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-gray-600 space-y-4 mb-8">
             <p className="text-lg leading-relaxed">
-              Every Indian who has tried Tatkal booking has Googled <em>"how to book tatkal fast"</em> at
+              Every Indian who has tried Tatkal booking has Googled <em>&ldquo;how to book tatkal fast&rdquo;</em> at
               some point. We see you. We are you.
             </p>
             <p className="leading-relaxed">

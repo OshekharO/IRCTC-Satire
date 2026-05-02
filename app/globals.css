@@ -102,6 +102,34 @@ body {
   background: linear-gradient(135deg, #00285F 0%, #003d8f 50%, #001a3d 100%);
 }
 
+/* Hero diagonal stripe texture overlay */
+.hero-diag {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 255, 0.03) 20px,
+    rgba(255, 255, 255, 0.03) 21px
+  );
+}
+
+/* Scrolling train-track rail animation at hero bottom */
+@keyframes track-scroll {
+  from { background-position-x: 0; }
+  to   { background-position-x: -200px; }
+}
+
+/* SVG track: two white rails + 6 evenly-spaced ties, tiled horizontally */
+.hero-track {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='40'%3E%3Cline x1='0' y1='12' x2='200' y2='12' stroke='white' stroke-width='3'/%3E%3Cline x1='0' y1='28' x2='200' y2='28' stroke='white' stroke-width='3'/%3E%3Crect x='7' y='6' width='6' height='28' fill='white'/%3E%3Crect x='40' y='6' width='6' height='28' fill='white'/%3E%3Crect x='73' y='6' width='6' height='28' fill='white'/%3E%3Crect x='106' y='6' width='6' height='28' fill='white'/%3E%3Crect x='139' y='6' width='6' height='28' fill='white'/%3E%3Crect x='172' y='6' width='6' height='28' fill='white'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 200px 100%;
+  background-position: 0 center;
+  opacity: 0.15;
+  animation: track-scroll 4s linear infinite;
+  will-change: background-position;
+}
+
 /* Step card hover effect */
 .step-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;

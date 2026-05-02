@@ -18,12 +18,12 @@ export default function MemeCard({
 
   return (
     <div
-      className={`rounded-2xl overflow-hidden shadow-lg border-2 ${
+      className={`rounded-2xl overflow-hidden shadow-lg ${
         isDesi
-          ? "border-yellow-400 bg-amber-50"
+          ? "border-2 border-yellow-400 bg-amber-50"
           : isLight
-          ? "border-gray-200 bg-white"
-          : `border-gray-700 ${bgColor}`
+          ? "border-2 border-gray-200 bg-white"
+          : "border border-white/20 bg-white/10 backdrop-blur-sm"
       } flex flex-col`}
     >
       {/* Top text */}

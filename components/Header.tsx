@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Train Status", href: "/train-status" },
   { label: "Hall of Shame", href: "/hall-of-shame" },
   { label: "Agent Network", href: "/agent-network" },
+  { label: "Disappointment Calculator", href: "/disappointment-calculator" },
 ];
 
 const retryMessages = [
