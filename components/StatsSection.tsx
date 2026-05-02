@@ -100,7 +100,7 @@ export default function StatsSection({
             key={stat.label}
             className={`text-center counter-animate ${isVisible ? "opacity-100" : "opacity-0"}`}
           >
-            <p className="text-3xl sm:text-4xl font-extrabold text-yellow-300 mb-2">
+            <p className="text-2xl sm:text-3xl font-extrabold text-yellow-300 mb-2 break-words">
               <AnimatedCounter
                 target={stat.value}
                 prefix={stat.prefix}
@@ -108,7 +108,7 @@ export default function StatsSection({
                 isVisible={isVisible}
               />
             </p>
-            <p className="text-blue-200 text-sm font-medium">{stat.label}</p>
+            <p className="text-blue-200 text-xs font-medium">{stat.label}</p>
           </div>
         ))}
       </div>

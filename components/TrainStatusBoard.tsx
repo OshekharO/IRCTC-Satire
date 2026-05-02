@@ -107,12 +107,12 @@ export default function TrainStatusBoard({ trains = defaultTrains }: TrainStatus
                 {train.scheduled}
               </td>
               <td className="px-4 py-3">
-                <span className="inline-flex items-center gap-1 text-orange-700 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-orange-500 status-blink inline-block" />
+                <span className="inline-flex items-center gap-1 text-orange-700 font-medium whitespace-nowrap">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 status-blink inline-block shrink-0" />
                   {train.currentStatus}
                 </span>
               </td>
-              <td className="px-4 py-3">
+              <td className="px-4 py-3 whitespace-nowrap">
                 <span className="delay-badge">{train.delay}</span>
               </td>
               <td className="px-4 py-3 text-gray-500 italic text-xs">
