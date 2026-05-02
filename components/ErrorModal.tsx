@@ -58,10 +58,10 @@ export default function ErrorModal({ isOpen, onClose }: ErrorModalProps) {
             </span>
           </div>
           <div className="flex gap-1">
-            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-sm w-5 h-5 flex items-center justify-center text-xs">
+            <button aria-hidden="true" tabIndex={-1} className="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-sm w-5 h-5 flex items-center justify-center text-xs">
               _
             </button>
-            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-sm w-5 h-5 flex items-center justify-center text-xs">
+            <button aria-hidden="true" tabIndex={-1} className="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-sm w-5 h-5 flex items-center justify-center text-xs">
               □
             </button>
             <button

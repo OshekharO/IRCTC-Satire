@@ -8,22 +8,27 @@ export default function TatkalTimer() {
   const [seconds, setSeconds] = useState(10);
   const [phase, setPhase] = useState<Phase>("countdown");
 
+  // Tick the countdown once per second.
   useEffect(() => {
     if (phase !== "countdown") return;
-
     const interval = setInterval(() => {
-      setSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setPhase("open");
-          setTimeout(() => setPhase("soldout"), 300);
-          return 0;
-        }
-        return prev - 1;
-      });
+      setSeconds((prev) => (prev <= 1 ? 0 : prev - 1));
     }, 1000);
-
     return () => clearInterval(interval);
+  }, [phase]);
+
+  // When the countdown reaches zero, move to the "open" phase.
+  useEffect(() => {
+    if (phase === "countdown" && seconds === 0) {
+      setPhase("open");
+    }
+  }, [phase, seconds]);
+
+  // After a short "open" flash, mark as sold-out. Clean up if unmounted early.
+  useEffect(() => {
+    if (phase !== "open") return;
+    const id = setTimeout(() => setPhase("soldout"), 300);
+    return () => clearTimeout(id);
   }, [phase]);
 
   const handleReset = () => {

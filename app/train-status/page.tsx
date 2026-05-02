@@ -107,6 +107,7 @@ export default function TrainStatusPage() {
   const [generatedReason, setGeneratedReason] = useState("");
   const [liveUpdates, setLiveUpdates] = useState<Array<{ time: string; message: string }>>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Stable random values — recomputed only when searchKey changes, not on every render
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,19 +118,23 @@ export default function TrainStatusPage() {
   const severityLevel = useMemo(() => getDelaySeverityLevel(delayAmount), [delayAmount]);
 
   useEffect(() => {
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    };
   }, []);
 
   const handleSearch = () => {
-    if (!trainNumber.trim()) return;
+    if (trainNumber.length !== 5) return;
     if (intervalRef.current) clearInterval(intervalRef.current);
+    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
 
     setSearched(false);
     setLoading(true);
     setLiveUpdates([]);
 
     // Fake ~1.5 s network call for realism
-    setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       setSearchKey((k) => k + 1);
       setSearched(true);
       setLoading(false);
@@ -175,13 +180,18 @@ export default function TrainStatusPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
+                inputMode="numeric"
                 value={trainNumber}
                 onChange={(e) => {
-                  setTrainNumber(e.target.value);
+                  // Accept only digits, max 5 characters
+                  const digits = e.target.value.replace(/\D/g, "").slice(0, 5);
+                  setTrainNumber(digits);
                   setSearched(false);
                   setLoading(false);
                 }}
-                placeholder="Enter train number (e.g. 12301)"
+                placeholder="Enter 5-digit train number (e.g. 12301)"
+                maxLength={5}
+                pattern="[0-9]{5}"
                 className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               />

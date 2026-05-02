@@ -23,7 +23,7 @@ export default function MemeCard({
           ? "border-2 border-yellow-400 bg-amber-50"
           : isLight
           ? "border-2 border-gray-200 bg-white"
-          : "border border-white/20 bg-white/10 backdrop-blur-sm"
+          : `border border-white/20 ${bgColor}`
       } flex flex-col`}
     >
       {/* Top text */}
