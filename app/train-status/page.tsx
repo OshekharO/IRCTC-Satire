@@ -61,7 +61,7 @@ export default function TrainStatusPage() {
       {/* Search Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-sm">
+          <div className="bg-gray-50 rounded-2xl p-4 sm:p-8 border border-gray-200 shadow-sm">
             <h2 className="text-xl font-bold text-primary mb-2">
               Check Train Status
             </h2>
@@ -95,16 +95,16 @@ export default function TrainStatusPage() {
                 <div className="flex items-start gap-4">
                   <div className="text-3xl">🚆</div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex items-center flex-wrap gap-2 mb-2">
                       <span className="font-mono font-black text-primary text-lg">
                         {trainNumber}
                       </span>
                       <span className="delay-badge">RUNNING LATE</span>
-                      <span className="bg-accent/10 text-accent font-bold text-sm px-2 py-1 rounded">
+                      <span className="bg-accent/10 text-accent font-bold text-sm px-2 py-1 rounded whitespace-nowrap">
                         4h 23m
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm mb-3">
+                    <p className="text-gray-600 text-sm mb-3 break-words">
                       <span className="font-medium">Current reason: </span>
                       <span className="italic text-gray-500">&ldquo;{reason}&rdquo;</span>
                     </p>

@@ -48,7 +48,7 @@ const legendaryCrashes = [
 
 const serverCrashes = [
   {
-    event: "Diwali 2023 Booking Window",
+    event: "Diwali 2025 Booking Window",
     duration: "6 hours down",
     detail:
       "140 million booking requests in 10 minutes. Servers responded by entering a coma. Engineers were called in at 3 AM. They brought biryani. Servers remained unimpressed.",
@@ -62,14 +62,14 @@ const serverCrashes = [
     icon: "🏏",
   },
   {
-    event: "Holi 2024 Booking",
+    event: "Holi 2025 Booking",
     duration: "4 hours transcended",
     detail:
       "Server achieved moksha and transcended physical existence for 4 hours. Users who attempted to book reported seeing their bookings in a parallel universe where they succeeded.",
     icon: "🎨",
   },
   {
-    event: "New Year 2024 Rush",
+    event: "New Year 2026 Rush",
     duration: "3 hours of nostalgia",
     detail:
       "Website displayed a 1999 error page. IRCTC later confirmed this was an intentional 'nostalgia feature' to remind users of simpler times when trains ran on time.",

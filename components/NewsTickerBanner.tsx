@@ -2,7 +2,7 @@
 
 const newsItems = [
   "🔴 BREAKING: IRCTC server achieves 0.1% uptime milestone, engineers celebrate with chai",
-  "🚂 Tatkal tickets for Diwali 2025 already sold to agents as of January 2024",
+  "🚂 Tatkal tickets for Diwali 2026 already sold to agents as of January 2026",
   "⚡ New captcha update: users must now identify blurry trains in 0.3 seconds",
   "🚆 Train 12301 Howrah Rajdhani sets new record: 11 hours late, blamed on 'operational reasons'",
   "💳 IRCTC introduces new feature: payment processing takes longer than the actual train journey",

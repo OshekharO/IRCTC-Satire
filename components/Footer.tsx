@@ -139,7 +139,7 @@ export default function Footer() {
       <div className="border-t border-blue-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <p className="text-center text-blue-300 text-xs mb-3">
-            © 2024 IRCTC Satire. All rights reserved. All trains delayed.
+            © 2026 IRCTC Satire. All rights reserved. All trains delayed.
             All tickets sold to agents.
           </p>
           <div className="bg-accent/20 border border-accent rounded-lg p-3 text-center">
