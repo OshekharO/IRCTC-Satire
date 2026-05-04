@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://irctc.eu.org";
-  const lastModified = new Date("2024-12-01");
+  const lastModified = new Date("2026-05-01");
 
   return [
     {

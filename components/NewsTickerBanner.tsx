@@ -1,5 +1,3 @@
-'use client';
-
 const newsItems = [
   "🔴 BREAKING: IRCTC server achieves 0.1% uptime milestone, engineers celebrate with chai",
   "🚂 Tatkal tickets for Diwali 2026 already sold to agents as of January 2026",

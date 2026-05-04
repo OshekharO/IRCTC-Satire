@@ -1,7 +1,3 @@
-'use client';
-
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
@@ -10,14 +6,7 @@ import NewsTickerBanner from "@/components/NewsTickerBanner";
 import MemeCard from "@/components/MemeCard";
 import ShareButtons from "@/components/ShareButtons";
 import FadeInSection from "@/components/FadeInSection";
-
-// Lazy-load the error modal — it is never needed until 3 seconds after mount
-// and only if the user keeps the page open, so there is no reason to include
-// it in the initial JS bundle.
-const ErrorModal = dynamic(() => import("@/components/ErrorModal"), {
-  ssr: false,
-  loading: () => null,
-});
+import HomeAutoModal from "@/components/HomeAutoModal";
 
 const steps = [
   {
@@ -147,12 +136,6 @@ const homeStats = [
 ];
 
 export default function HomePage() {
-  const [showErrorModal, setShowErrorModal] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowErrorModal(true), 3000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>
@@ -519,10 +502,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ErrorModal
-        isOpen={showErrorModal}
-        onClose={() => setShowErrorModal(false)}
-      />
+      <HomeAutoModal />
     </>
   );
 }
