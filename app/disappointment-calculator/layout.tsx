@@ -39,6 +39,52 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Disappointment Calculator",
+          "item": PAGE_URL,
+        },
+      ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": PAGE_URL,
+      "url": PAGE_URL,
+      "name": "IRCTC Disappointment Calculator™",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "Any",
+      "description":
+        "Personalised calculator predicting IRCTC booking failure probability, session expiries, and frustration score.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+      },
+    },
+  ],
+};
+
 export default function DisappointmentCalculatorLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {children}
+    </>
+  );
 }

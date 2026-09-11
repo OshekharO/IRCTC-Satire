@@ -46,43 +46,64 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
 };
 
-const howToJsonLd = {
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "How to Book Tatkal Tickets Fast on IRCTC",
-  description:
-    "A satirical step-by-step guide on how to book tatkal tickets fast on IRCTC — including the tip that actually works.",
-  url: PAGE_URL,
-  image: `${BASE_URL}/og-image.png`,
-  author: { "@type": "Person", name: "A Frustrated Train Passenger" },
-  publisher: { "@type": "Organization", name: "IRCTC Satire", url: BASE_URL },
-  datePublished: "2026-05-01",
-  inLanguage: "en-IN",
-  step: [
+  "@graph": [
     {
-      "@type": "HowToStep",
-      name: "Pre-fill your IRCTC profile",
-      text: "Save all passenger details in your IRCTC profile so you don't waste time typing during booking.",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tatkal Tips",
+          "item": PAGE_URL,
+        },
+      ],
     },
     {
-      "@type": "HowToStep",
-      name: "Use a fast browser",
-      text: "Use Google Chrome or Firefox with all extensions disabled to get the fastest page load.",
-    },
-    {
-      "@type": "HowToStep",
-      name: "Prepare payment in advance",
-      text: "Keep your UPI or card details ready. Pre-authorize your payment method to save time.",
-    },
-    {
-      "@type": "HowToStep",
-      name: "Open multiple tabs",
-      text: "Open three tabs with IRCTC loaded and ready to go before 10 AM.",
-    },
-    {
-      "@type": "HowToStep",
-      name: "Call a ticket agent",
-      text: "The one tip that actually works. A professional agent with bots and leased lines will secure your ticket in milliseconds.",
+      "@type": "HowTo",
+      "name": "How to Book Tatkal Tickets Fast on IRCTC",
+      "description":
+        "A satirical step-by-step guide on how to book tatkal tickets fast on IRCTC — including the tip that actually works.",
+      "url": PAGE_URL,
+      "image": `${BASE_URL}/og-image.png`,
+      "author": { "@type": "Person", "name": "A Frustrated Train Passenger" },
+      "publisher": { "@type": "Organization", "name": "IRCTC Satire", "url": BASE_URL },
+      "datePublished": "2026-05-01",
+      "inLanguage": "en-IN",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Pre-fill your IRCTC profile",
+          "text": "Save all passenger details in your IRCTC profile so you don't waste time typing during booking.",
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Use a fast browser",
+          "text": "Use Google Chrome or Firefox with all extensions disabled to get the fastest page load.",
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Prepare payment in advance",
+          "text": "Keep your UPI or card details ready. Pre-authorize your payment method to save time.",
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Open multiple tabs",
+          "text": "Open three tabs with IRCTC loaded and ready to go before 10 AM.",
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Call a ticket agent",
+          "text": "The one tip that actually works. A professional agent with bots and leased lines will secure your ticket in milliseconds.",
+        },
+      ],
     },
   ],
 };
@@ -294,7 +315,7 @@ export default function TatkalTipsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <HeroSection

@@ -5,6 +5,89 @@ import TweetCard from "@/components/TweetCard";
 import TatkalFaq from "@/components/TatkalFaq";
 import TatkalTimerWrapper from "@/components/TatkalTimerWrapper";
 
+const BASE_URL = "https://irctc.eu.org";
+const PAGE_URL = `${BASE_URL}/tatkal`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tatkal Booking",
+          "item": PAGE_URL,
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": PAGE_URL,
+      "url": PAGE_URL,
+      "name": "Tatkal Booking — The Great Indian Lottery",
+      "description":
+        "₹1,500 for a chance to witness the fastest sellout in human history. All 72 Tatkal seats gone in 0.3 seconds every morning at 10 AM.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": `${BASE_URL}/#website`,
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why are all Tatkal tickets sold in 0.3 seconds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Automated scripts and high-speed agent networks purchase seats in under 300 milliseconds before human users can finish typing passenger details.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the IRCTC server crash during peak Tatkal booking?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Millions of concurrent users simultaneously access IRCTC servers at 10:00 AM, exceeding server capacity.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Can I get a refund if payment was deducted but no ticket issued?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Refunds are processed via TDR requests back to the original payment source within several business days.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the Tatkal captcha so difficult?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Complex image captchas add significant delays for human users while automated OCR solvers bypass them in milliseconds.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any guaranteed way to get a Tatkal ticket?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Regular manual booking has extremely low odds due to high demand and automated competition.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const pricingData = [
   {
     type: "Sleeper Regular",
@@ -209,6 +292,11 @@ const tatkalRelatedArticles = [
 export default function TatkalPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <HeroSection
         title="Tatkal Booking — The Great Indian Lottery"
         subtitle="₹1,500 for a chance to witness the fastest sellout in human history. Tickets available for 0.3 seconds every morning."
