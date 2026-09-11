@@ -1,0 +1,3 @@
+## 2026-05-20 - Initial Visual Inspection & UI Design System Polish
+**Learning:** Found inline hardcoded hex colors (`#E31837`, `#00285F`, `#22c55e`, `#f97316`, `#e5e7eb`) in `DisappointmentCalculatorPage` and custom CSS styles/SVG gauges instead of using Tailwind extended color tokens / classes (`bg-accent`, `bg-primary`, `bg-emerald-500`, etc.). Additionally, interactive elements in ErrorModal, Header, and DisappointmentCalculator were missing clear hover/focus-visible states or had slight token inconsistencies.
+**Action:** Replace hardcoded hex colors with Tailwind theme token utilities or extended colors, harmonize focus-visible states across interactive elements, and refine component styling for full consistency with the IRCTC design system.

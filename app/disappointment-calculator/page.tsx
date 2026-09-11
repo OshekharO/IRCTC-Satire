@@ -242,16 +242,16 @@ function ScoreGauge({ score, grade, gradeColor }: { score: number; grade: string
         <path
           d="M 16 85 A 54 54 0 1 1 124 85"
           fill="none"
-          stroke="#e5e7eb"
+          className="stroke-gray-200"
           strokeWidth="10"
           strokeLinecap="round"
         />
-        {/* Colored arc — red to orange to yellow */}
+        {/* Colored arc — red to orange to yellow using design tokens */}
         <defs>
           <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#22c55e" />
-            <stop offset="50%" stopColor="#f97316" />
-            <stop offset="100%" stopColor="#E31837" />
+            <stop offset="0%" stopColor="var(--success, #00A651)" />
+            <stop offset="50%" stopColor="var(--warning, #FF6B00)" />
+            <stop offset="100%" stopColor="var(--accent, #E31837)" />
           </linearGradient>
         </defs>
         <path
@@ -269,16 +269,16 @@ function ScoreGauge({ score, grade, gradeColor }: { score: number; grade: string
           y1={cy}
           x2={needleX}
           y2={needleY}
-          stroke="#00285F"
+          className="stroke-primary"
           strokeWidth="3"
           strokeLinecap="round"
         />
-        <circle cx={cx} cy={cy} r="4" fill="#00285F" />
+        <circle cx={cx} cy={cy} r="4" className="fill-primary" />
         {/* Score text */}
-        <text x={cx} y={cy + 14} textAnchor="middle" fontSize="18" fontWeight="900" fill="#E31837">
+        <text x={cx} y={cy + 14} textAnchor="middle" fontSize="18" fontWeight="900" className="fill-accent">
           {score}
         </text>
-        <text x={cx} y={cy + 22} textAnchor="middle" fontSize="7" fill="#6b7280">
+        <text x={cx} y={cy + 22} textAnchor="middle" fontSize="7" className="fill-gray-500">
           FRUSTRATION SCORE™
         </text>
       </svg>
@@ -538,7 +538,7 @@ export default function DisappointmentCalculatorPage() {
               <button
                 onClick={handleCalculate}
                 disabled={loading}
-                className="w-full bg-accent hover:bg-red-700 disabled:opacity-60 text-white font-extrabold py-4 rounded-xl text-base transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="w-full bg-accent hover:bg-red-700 disabled:opacity-60 text-white font-extrabold py-4 rounded-xl text-base transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {loading ? (
                   <>
