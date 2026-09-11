@@ -48,19 +48,40 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  headline: "Why Tatkal Fails Every Time: The Real Reasons Behind IRCTC's Booking Disaster",
-  description:
-    "A satirical analysis of why tatkal booking fails — covering bots, agents, server infrastructure, and the systematic design failures of IRCTC's Tatkal system.",
-  url: PAGE_URL,
-  image: `${BASE_URL}/og-image.png`,
-  author: { "@type": "Person", name: "A Frustrated Train Passenger" },
-  publisher: { "@type": "Organization", name: "IRCTC Satire", url: BASE_URL },
-  datePublished: "2026-05-01",
-  dateModified: "2026-05-01",
-  inLanguage: "en-IN",
-  keywords: "why tatkal fails, tatkal booking problem, irctc tatkal issue",
-  mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Why Tatkal Fails",
+          "item": PAGE_URL,
+        },
+      ],
+    },
+    {
+      "@type": "Article",
+      "headline": "Why Tatkal Fails Every Time: The Real Reasons Behind IRCTC's Booking Disaster",
+      "description":
+        "A satirical analysis of why tatkal booking fails — covering bots, agents, server infrastructure, and the systematic design failures of IRCTC's Tatkal system.",
+      "url": PAGE_URL,
+      "image": `${BASE_URL}/og-image.png`,
+      "author": { "@type": "Person", "name": "A Frustrated Train Passenger" },
+      "publisher": { "@type": "Organization", "name": "IRCTC Satire", "url": BASE_URL },
+      "datePublished": "2026-05-01",
+      "dateModified": "2026-05-01",
+      "inLanguage": "en-IN",
+      "keywords": "why tatkal fails, tatkal booking problem, irctc tatkal issue",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": PAGE_URL },
+    },
+  ],
 };
 
 const reasons = [

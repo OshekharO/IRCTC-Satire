@@ -39,6 +39,41 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hall of Shame",
+          "item": PAGE_URL,
+        },
+      ],
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": PAGE_URL,
+      "url": PAGE_URL,
+      "name": "Hall of Shame — A Museum of Indian Railway Excellence",
+      "description":
+        "A curated collection of IRCTC's finest achievements in the art of failure — the 4-hour booking process, disappearing buttons, payment roulette, and impossible captchas.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": `${BASE_URL}/#website`,
+      },
+    },
+  ],
+};
+
 const uxDisasters = [
   {
     title: "The 4-Hour Booking Process",
@@ -150,6 +185,11 @@ const errorMessages = [
 export default function HallOfShamePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <HeroSection
         title="Hall of Shame — A Museum of Indian Railway Excellence"
         subtitle="A curated collection of IRCTC's finest achievements in the art of failure. Entry is free. Your time is not."

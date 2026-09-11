@@ -40,6 +40,53 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Train Status",
+          "item": PAGE_URL,
+        },
+      ],
+    },
+    {
+      "@type": "WebApplication",
+      "@id": PAGE_URL,
+      "url": PAGE_URL,
+      "name": "Train Status Checker",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Any",
+      "description":
+        "Check the real-time status and satirical delay reasons for any Indian Railways train.",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR",
+      },
+    },
+  ],
+};
+
 export default function TrainStatusLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {children}
+    </>
+  );
 }
