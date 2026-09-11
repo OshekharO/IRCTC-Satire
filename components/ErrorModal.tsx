@@ -94,13 +94,13 @@ export default function ErrorModal({ isOpen, onClose }: ErrorModalProps) {
           <div className="flex gap-2 justify-end">
             <button
               onClick={onClose}
-              className="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded text-sm font-medium transition-colors border border-gray-300"
+              className="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded text-sm font-medium transition-colors border border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               Give Up
             </button>
             <button
               onClick={handleRetry}
-              className="px-5 py-2 bg-primary hover:bg-blue-900 text-white rounded text-sm font-medium transition-colors border border-blue-900"
+              className="px-5 py-2 bg-primary hover:bg-blue-900 text-white rounded text-sm font-medium transition-colors border border-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               Retry (Different Error)
             </button>

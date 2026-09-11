@@ -79,7 +79,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-800 hover:text-white transition-colors"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-blue-100 hover:bg-blue-800 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 >
                   {link.label}
                 </Link>
@@ -90,14 +90,14 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <button
                 onClick={handleBookTicket}
-                className="hidden md:inline-flex items-center gap-2 bg-accent hover:bg-red-700 text-white text-sm font-bold px-4 py-2 rounded-md transition-colors shadow-md"
+                className="hidden md:inline-flex items-center gap-2 bg-accent hover:bg-red-700 text-white text-sm font-bold px-4 py-2 rounded-md transition-colors shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               >
                 🎫 Book Ticket
               </button>
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="md:hidden p-2 rounded-md hover:bg-blue-800 transition-colors"
+                className="md:hidden p-2 rounded-md hover:bg-blue-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 aria-label="Toggle menu"
                 aria-expanded={menuOpen}
               >
